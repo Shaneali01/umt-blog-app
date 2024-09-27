@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast'; // Import toast
 
 import axios from 'axios';
-import { BACKEND_URL } from '../../utlit';
+import { BACKEND_URL } from '../utlit';
 
 const Register = () => {
   const navigate=useNavigate();

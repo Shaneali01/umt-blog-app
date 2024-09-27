@@ -3,7 +3,7 @@ import { useAuth } from "../ContextApi/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { BACKEND_URL } from "../../utlit";
+import { BACKEND_URL } from "../utlit";
 
 const Sidebar = () => {
   const { profile } = useAuth();

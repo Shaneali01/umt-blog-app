@@ -3,7 +3,7 @@ import Sidebar from './Sidebar';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { BACKEND_URL } from '../../utlit';
+import { BACKEND_URL } from '../utlit';
 
 const CreateBlog = () => {
   const navigate=useNavigate();

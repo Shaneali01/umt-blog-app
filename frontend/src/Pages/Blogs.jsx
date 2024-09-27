@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios';
 import  { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { BACKEND_URL } from '../../utlit';
+import { BACKEND_URL } from '../utlit';
 
 const Blogs = () => {
   const { id } = useParams(); // Get the blog ID from the URL

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BACKEND_URL } from '../../utlit';
+import { BACKEND_URL } from '../utlit';
 
 const AdminBlogs = () => {
   const [useblogs, setblogs] = useState([]); // Initialize as an empty array

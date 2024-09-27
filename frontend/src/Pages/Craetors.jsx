@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ClipLoader from 'react-spinners/ClipLoader'; // Import ClipLoader for spinner
 import 'react-multi-carousel/lib/styles.css';
-import { BACKEND_URL } from '../../utlit';
+import { BACKEND_URL } from '../utlit';
 
 const Creators = () => {
   const [admins, setAdmins] = useState([]);
