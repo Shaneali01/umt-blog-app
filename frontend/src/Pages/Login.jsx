@@ -37,6 +37,8 @@ const Login = () => {
       else{
         getProfile();
         toast.success(data.message);
+        console.log("JWT Token:", Cookies.get('jwt'));
+
 
         setEmail('');
       setPassword('');
