@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ClipLoader from 'react-spinners/ClipLoader'; // Import ClipLoader for spinner
 import 'react-multi-carousel/lib/styles.css';
+import { BACKEND_URL } from '../../utlit';
 
 const Creators = () => {
   const [admins, setAdmins] = useState([]);
@@ -11,7 +12,7 @@ const Creators = () => {
   useEffect(() => {
     const fetchAdmins = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/users/allAdmins');
+        const response = await axios.get(`${BACKEND_URL}/api/users/allAdmins`);
         console.log('POOKIE SHAN', response.data);
         setAdmins(response.data);
       } catch (error) {

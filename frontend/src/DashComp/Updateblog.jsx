@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
+import { BACKEND_URL } from '../../utlit';
 
 const Updateblog = () => {
   const { id } = useParams(); // Get the blog ID from the URL
@@ -43,7 +44,7 @@ const Updateblog = () => {
   async function getSingleBlog() {
     setLoading(true); // Add loading state for fetching blog
     try {
-      const response = await axios.get(`http://localhost:8000/blog/singleblog/${id}`, { withCredentials: true });
+      const response = await axios.get(`${BACKEND_URL}/blog/singleblog/${id}`, { withCredentials: true });
       if (response.data === "USER DONT EXIST WITH THIS ID") {
         setError("Blog not found");
       } else {

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast'; // Import toast
 
 import axios from 'axios';
+import { BACKEND_URL } from '../../utlit';
 
 const Register = () => {
   const navigate=useNavigate();
@@ -40,7 +41,7 @@ const Register = () => {
 
     try {
       const { data } = await axios.post(
-        'http://localhost:8000/api/users/register',
+        `${BACKEND_URL}/api/users/register`,
         formData,{withCredentials:true}
       );
       toast.success("SUCCESSFULLY REGISTERED");

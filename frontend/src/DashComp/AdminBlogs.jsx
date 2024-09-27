@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from '../../utlit';
 
 const AdminBlogs = () => {
   const [useblogs, setblogs] = useState([]); // Initialize as an empty array
@@ -10,7 +11,7 @@ const AdminBlogs = () => {
 
   async function getadminblogs() {
     try {
-      const response = await axios.get('http://localhost:8000/blog/myblogs', { withCredentials: true });
+      const response = await axios.get(`${BACKEND_URL}/blog/myblogs`, { withCredentials: true });
       setblogs(response.data); // Set the fetched data to state
       console.log(useblogs)
     } catch (err) {

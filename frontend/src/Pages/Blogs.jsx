@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios';
 import  { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { BACKEND_URL } from '../../utlit';
 
 const Blogs = () => {
   const { id } = useParams(); // Get the blog ID from the URL
@@ -11,7 +12,7 @@ const Blogs = () => {
 
   async function getSingleBlog() {
     try {
-      const response = await axios.get(`http://localhost:8000/blog/singleblog/${id}`, { withCredentials: true });
+      const response = await axios.get(`${BACKEND_URL}/blog/singleblog/${id}`, { withCredentials: true });
       if (response.data === "USER DONT EXIST WITH THIS ID") {
         setError("Blog not found");
       } else {

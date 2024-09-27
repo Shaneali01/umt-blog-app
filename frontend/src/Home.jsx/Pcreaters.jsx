@@ -3,12 +3,13 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import {Link} from 'react-router-dom'
 import axios from 'axios';
+import { BACKEND_URL } from '../../utlit';
 
 const Pcreaters = () => {
   const[admins,setadmins]=useState([])
   useEffect(()=>{
     async function admins(){
-      const response=await axios.get('http://localhost:8000/api/users/allAdmins');
+      const response=await axios.get(`${BACKEND_URL}/api/users/allAdmins`);
       setadmins(response.data)
     }
     admins();

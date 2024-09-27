@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
+import { BACKEND_URL } from '../../utlit';
 
 const Deleteblog = () => {
   const { id } = useParams(); // Get the blog ID from the URL
@@ -28,7 +29,7 @@ const Deleteblog = () => {
   }
   async function deleteblog(){
     try{
-      const response=await axios.delete(`http://localhost:8000/blog/deleteblog/${id}`,{withCredentials:true})
+      const response=await axios.delete(`${BACKEND_URL}/blog/deleteblog/${id}`,{withCredentials:true})
       console.log(response)
       toast.success('SUCESSFULLY DELETED')
       navigate('/dashboard')

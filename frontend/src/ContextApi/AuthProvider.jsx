@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 import axios from "axios";
+import { BACKEND_URL } from "../../utlit";
 
 export const AuthContext = createContext();
 
@@ -17,7 +18,7 @@ const AuthProvider = ({ children }) => {
 
       // Only fetch the profile if the token exists
       if (token) {
-        const response = await axios.get('http://localhost:8000/api/users/getprofile', {
+        const response = await axios.get(`${BACKEND_URL}/api/users/getprofile`, {
           headers: { Authorization: `Bearer ${token}` }, // Sending token in headers
           withCredentials: true,
         });
@@ -36,7 +37,7 @@ const AuthProvider = ({ children }) => {
   }
   async function fetchBlogs() {
     try {
-      const response = await axios.get("http://localhost:8000/blog/allblogs");
+      const response = await axios.get(`${BACKEND_URL}/blog/allblogs`);
       console.log("Blogs Response:", response.data);
       setBlogs(response.data);
     } catch (err) {

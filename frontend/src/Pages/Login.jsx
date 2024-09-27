@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../ContextApi/AuthProvider';
+import { BACKEND_URL } from '../../utlit';
 
 const Login = () => {
   const navigate=useNavigate();
@@ -21,7 +22,7 @@ const Login = () => {
 
     try {
       const { data } = await axios.post(
-        'http://localhost:8000/api/users/login',
+        `${BACKEND_URL}/api/users/login`,
         formData,{withCredentials:true}
       );
       console.log(data)

@@ -3,13 +3,14 @@ import { useAuth } from "../ContextApi/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { BACKEND_URL } from "../../utlit";
 
 const Sidebar = () => {
   const { profile } = useAuth();
   const navigate = useNavigate();
   async function handlelogout(){
     try{
-      const response=await axios.get('http://localhost:8000/api/users/logout',{withCredentials:true})
+      const response=await axios.get(`${BACKEND_URL}/api/users/logout`,{withCredentials:true})
       console.log("myrespnse",response)
       toast.success('SUCCESSFULL LOGOUT')
       navigate('/login')

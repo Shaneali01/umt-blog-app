@@ -3,6 +3,7 @@ import Sidebar from './Sidebar';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { BACKEND_URL } from '../../utlit';
 
 const CreateBlog = () => {
   const navigate=useNavigate();
@@ -40,7 +41,7 @@ const CreateBlog = () => {
 
     setLoading(true); // Start loading
     try {
-      const response = await axios.post('http://localhost:8000/blog/blogcreate', formdata, { withCredentials: true });
+      const response = await axios.post(`${BACKEND_URL}/blog/blogcreate`, formdata, { withCredentials: true });
       console.log(response.data.message);
       toast.success('Blog posted successfully!');
       navigate('/')
