@@ -10,7 +10,7 @@ async function createToken(userid, res) {
         httpOnly: false, 
         secure: true, 
         sameSite: 'None', // Valid values: 'Strict', 'Lax', or 'None'
-        domain:'https://umt-blog-app.vercel.app',
+        domain:'umt-blog-app.vercel.app',
         maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
     });
 
