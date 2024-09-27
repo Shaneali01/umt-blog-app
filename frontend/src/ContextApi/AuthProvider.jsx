@@ -46,8 +46,6 @@ const AuthProvider = ({ children }) => {
   }
 
   useEffect(() => {
-
-
     fetchBlogs();
     getProfile(); // Only called if the token exists
   }, []);

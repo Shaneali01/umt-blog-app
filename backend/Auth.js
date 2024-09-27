@@ -7,7 +7,7 @@ async function createToken(userid, res) {
 
     // Set the JWT as a cookie
     res.cookie('jwt', token, {
-        httpOnly: false, 
+        httpOnly: true, 
         secure: true, 
         sameSite: 'None', // Valid values: 'Strict', 'Lax', or 'None'
         maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
