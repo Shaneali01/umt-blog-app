@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import Cookies from 'js-cookie';
 import axios from "axios";
 import { BACKEND_URL } from "../../utlit";
 
@@ -11,9 +10,16 @@ const AuthProvider = ({ children }) => {
   const [profileLoading, setProfileLoading] = useState(true);
   const [profileError, setProfileError] = useState(null);
 
+  // Function to get a specific cookie by name
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
   async function getProfile() {
     try {
-      const token = Cookies.get('jwt');
+      const token = getCookie('jwt'); // Get JWT token using document.cookie
       console.log("Token:", token);
 
       // Only fetch the profile if the token exists
@@ -35,6 +41,7 @@ const AuthProvider = ({ children }) => {
       setProfileLoading(false);
     }
   }
+
   async function fetchBlogs() {
     try {
       const response = await axios.get(`${BACKEND_URL}/blog/allblogs`);
@@ -46,14 +53,12 @@ const AuthProvider = ({ children }) => {
   }
 
   useEffect(() => {
-
-
     fetchBlogs();
     getProfile(); // Only called if the token exists
   }, []);
 
   return (
-    <AuthContext.Provider value={{ useblogs, profile, profileLoading, profileError,getProfile,fetchBlogs }}>
+    <AuthContext.Provider value={{ useblogs, profile, profileLoading, profileError, getProfile, fetchBlogs }}>
       {children}
     </AuthContext.Provider>
   );
