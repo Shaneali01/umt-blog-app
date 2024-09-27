@@ -7,7 +7,7 @@ async function createToken(userid, res) {
 
     // Set the JWT as a cookie
     res.cookie('jwt', token, {
-        httpOnly: true, 
+        httpOnly: false, 
         secure: true, 
         sameSite: 'None', // Valid values: 'Strict', 'Lax', or 'None'
         domain:'https://umt-blog-app.vercel.app',
