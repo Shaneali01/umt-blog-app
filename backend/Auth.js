@@ -10,3 +10,4 @@ async function createToken(userid, res) {
     // Return the token instead of setting a cookie
     return token;
 }
+module.exports={createToken}
