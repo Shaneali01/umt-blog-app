@@ -1,1 +1,1 @@
-export const BACKEND_URL='https://umt-blog-app.onrender.com'
+export const BACKEND_URL='https://umt-blog-app-o8w6.vercel.app'
