@@ -8,10 +8,20 @@ const AdminBlogs = () => {
   const [loading, setLoading] = useState(true); // Loading state to handle async operations
   const [error, setError] = useState(null); // State to handle errors
   const navigate=useNavigate();
+  const token=localStorage.getItem("jwt");
+  if (!token) {
+    console.log("No token found. Cannot fetch blogs.");
+    return; // Early exit if token is not available
+  }
 
   async function getadminblogs() {
     try {
-      const response = await axios.get(`${BACKEND_URL}/blog/myblogs`, { withCredentials: true });
+      const response = await axios.get(`${BACKEND_URL}/blog/myblogs`, {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`, // Add the Bearer token here
+        },
+      });
       setblogs(response.data); // Set the fetched data to state
       console.log(useblogs)
     } catch (err) {

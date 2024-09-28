@@ -38,10 +38,20 @@ const CreateBlog = () => {
     formdata.append('title', title);
     formdata.append('blogphoto', photo);
     formdata.append('about', about);
+    const token=localStorage.getItem('jwt');
+    if (!token) {
+      console.log("No token found. Cannot fetch blogs.");
+      return; // Early exit if token is not available
+    }
 
     setLoading(true); // Start loading
     try {
-      const response = await axios.post(`${BACKEND_URL}/blog/blogcreate`, formdata, { withCredentials: true });
+      const response = await axios.post(`${BACKEND_URL}/blog/blogcreate`, formdata, {
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`, // Add the Bearer token here
+        },
+      });
       console.log(response.data.message);
       toast.success('Blog posted successfully!');
       navigate('/')
