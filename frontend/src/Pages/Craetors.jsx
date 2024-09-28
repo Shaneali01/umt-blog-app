@@ -12,7 +12,13 @@ const Creators = () => {
   useEffect(() => {
     const fetchAdmins = async () => {
       try {
-        const response = await axios.get(`${BACKEND_URL}/api/users/allAdmins`);
+        const token=localStorage.getItem('jwt')
+        const response = await axios.get(`${BACKEND_URL}/api/users/allAdmins`,{
+          headers:{
+            Authorization: `Bearer ${token}`  
+          },
+          withCredentials:true
+        });
         console.log('POOKIE SHAN', response.data);
         setAdmins(response.data);
       } catch (error) {
