@@ -41,7 +41,6 @@ const Login = () => {
         getProfile();
         toast.success(data.message);
         console.log("THIS IS JWT Token:", localStorage.getItem('jwt'));
-        console.log(document.cookie);
 
         setEmail('');
         setPassword('');

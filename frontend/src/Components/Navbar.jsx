@@ -3,18 +3,16 @@ import { NavLink } from 'react-router-dom'; // Import NavLink
 import { CiMenuBurger } from "react-icons/ci";
 import { RxCross2 } from "react-icons/rx";
 import { useAuth } from '../ContextApi/AuthProvider';
-import Cookies from 'js-cookie';
-import image from '../images/image.png'
+import image from '../images/image.png';
 import toast from 'react-hot-toast';
 
 const Navbar = () => {
-  const token = Cookies.get('jwt'); // Get token from cookies
-
   const [show, setShow] = useState(false); // Toggle state for mobile navbar
   const { profile } = useAuth(); // Assuming `useAuth` provides user profile
 
-  // Show toast notification if user is not logged in
- 
+  // Get token from localStorage
+  const token = localStorage.getItem('jwt'); // Get token from local storage
+  console.log('NAVBAR TOKEN',token)
 
   // Function to determine the active class for NavLink
   const navLinkClass = ({ isActive }) => 
@@ -22,20 +20,20 @@ const Navbar = () => {
 
   // Handle logout by clearing the token
   const handleLogout = () => {
-    Cookies.remove('jwt'); // Remove the JWT token
+    localStorage.removeItem('jwt'); // Remove the JWT token from local storage
     window.location.reload(); // Reload the page to refresh the state
   };
 
   return (
     <>
       <nav className='shadow-lg px-4 py-2'>
-        <div className='flex justify-between  container mx-auto'>
-          <div className='font-semibold  text-xl mt-1 flex flex-row '>
+        <div className='flex justify-between container mx-auto'>
+          <div className='font-semibold text-xl mt-1 flex flex-row'>
             <img src={image} className='h-[40px] mt-[-5px] mr-2 w-[40px]' alt="" />
             UMT <span className='text-blue-500 ml-2'>Blogs</span>
           </div>
           <div>
-            <ul className=' md:space-x-4 md:justify-evenly  md:text-sm  lg:text-md md:font-bold   lg:space-x-6 hidden md:flex md:mt-[8px] lg:mt-[5px]'>
+            <ul className='md:space-x-4 md:justify-evenly md:text-sm lg:text-md md:font-bold lg:space-x-6 hidden md:flex md:mt-[8px] lg:mt-[5px]'>
               <NavLink className={navLinkClass} to='/'>HOME</NavLink>
               {token && ( // Render these links only when token exists (user is logged in)
                 <>
@@ -55,19 +53,17 @@ const Navbar = () => {
             )}
           </div>
           <div className='space-x-2 hidden md:flex'>
-          {profile?.role === 'admin' && ( // Optional chaining to avoid errors if profile or role is undefined
+            {profile?.role === 'admin' && ( // Optional chaining to avoid errors if profile or role is undefined
               <NavLink to='/dashboard' className='bg-blue-600 text-white font-semibold hover:bg-blue-800 px-4 py-2 rounded'>
                 DASHBOARD
               </NavLink>
-              
             )}
-           
             {token ? (
-              <button onClick={handleLogout} className='bg-red-600 text-white font-semibold hover:bg-red-800  md:px-2 md:py-1 lg:px-4 lg:py-2 rounded'>
+              <button onClick={handleLogout} className='bg-red-600 text-white font-semibold hover:bg-red-800 md:px-2 md:py-1 lg:px-4 lg:py-2 rounded'>
                 Logout
               </button>
             ) : (
-              <NavLink to='/login' className='bg-red-600 text-white font-semibold hover:bg-red-800  md:px-2 md:py-1 lg:px-4 lg:py-2 rounded'>
+              <NavLink to='/login' className='bg-red-600 text-white font-semibold hover:bg-red-800 md:px-2 md:py-1 lg:px-4 lg:py-2 rounded'>
                 Login
               </NavLink>
             )}
@@ -81,31 +77,26 @@ const Navbar = () => {
               <NavLink onClick={() => setShow(false)} className={`${navLinkClass} bg-green-600 text-white font-semibold hover:bg-red-800 px-4 py-2 rounded`} to='/'>HOME</NavLink>
               {token && ( // Show only when token exists (logged in)
                 <>
-                <NavLink onClick={() => setShow(false)} className={`${navLinkClass} bg-purple-600 text-white font-semibold hover:bg-red-800 px-4 py-2 rounded`} to='/allblogs'>
-  BLOGS
-</NavLink>
-
+                  <NavLink onClick={() => setShow(false)} className={`${navLinkClass} bg-purple-600 text-white font-semibold hover:bg-red-800 px-4 py-2 rounded`} to='/allblogs'>BLOGS</NavLink>
                   <NavLink onClick={() => setShow(false)} className={`${navLinkClass} bg-yellow-600 text-white font-semibold hover:bg-red-800 px-4 py-2 rounded`} to='/creators'>CREATORS</NavLink>
                 </>
               )}
-               
               <NavLink onClick={() => setShow(false)} className={`${navLinkClass} bg-gray-600 text-white font-semibold hover:bg-red-800 px-4 py-2 rounded`} to='/about'>ABOUT</NavLink>
               <NavLink onClick={() => setShow(false)} className={`${navLinkClass} bg-emerald-600 text-white font-semibold hover:bg-red-800 px-4 py-2 rounded`} to='/contact'>CONTACT</NavLink>
               {profile?.role === 'admin' && ( // Optional chaining to avoid errors if profile or role is undefined
-              <NavLink to='/dashboard' className='bg-blue-600 text-white font-semibold hover:bg-blue-800 px-4 py-2 rounded'>
-                DASHBOARD
-              </NavLink>
-              
-            )}
-            {token ? (
-              <button onClick={handleLogout} className='bg-red-600 text-white font-semibold hover:bg-red-800 px-4 py-2 rounded'>
-                Logout
-              </button>
-            ) : (
-              <NavLink to='/login' className='bg-red-600 text-white font-semibold hover:bg-red-800 px-4 py-2 rounded'>
-                Login
-              </NavLink>
-            )}
+                <NavLink to='/dashboard' className='bg-blue-600 text-white font-semibold hover:bg-blue-800 px-4 py-2 rounded'>
+                  DASHBOARD
+                </NavLink>
+              )}
+              {token ? (
+                <button onClick={handleLogout} className='bg-red-600 text-white font-semibold hover:bg-red-800 px-4 py-2 rounded'>
+                  Logout
+                </button>
+              ) : (
+                <NavLink to='/login' className='bg-red-600 text-white font-semibold hover:bg-red-800 px-4 py-2 rounded'>
+                  Login
+                </NavLink>
+              )}
             </ul>
           </div>
         )}
