@@ -17,7 +17,7 @@ console.log(MONGO_URI)
 app.use(express.json())
 app.use(cookieparser())
 app.use(cors({
-    origin: 'https://umt-blog-app.vercel.app/', // Update this to your frontend URL
+    origin:process.env.FRONTEND_URL, // Update this to your frontend URL
     credentials: true, // Allow credentials (cookies)
     methods: ['GET', 'POST', 'PUT', 'DELETE'] // Add methods as needed
 }));
