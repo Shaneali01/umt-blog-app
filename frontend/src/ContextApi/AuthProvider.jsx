@@ -20,7 +20,6 @@ const AuthProvider = ({ children }) => {
       // Only fetch the profile if the token exists
       if (token) {
         const response = await axios.get(`${BACKEND_URL}/api/users/getprofile`, {
-          headers: { Authorization: `Bearer ${token}` }, // Sending token in headers
           withCredentials: true,
         });
 
