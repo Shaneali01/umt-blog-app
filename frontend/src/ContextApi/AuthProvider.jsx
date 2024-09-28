@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
           withCredentials: true,
         });
 
-        console.log("Profile Data:", response.data);
+        console.log("Profile Data:", response);
         setProfile(response.data);
       } else {
         console.log("No token found, skipping profile fetch.");

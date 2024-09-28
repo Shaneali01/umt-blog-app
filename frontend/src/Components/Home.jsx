@@ -8,7 +8,7 @@ import Cookies from 'js-cookie';
 import { useEffect } from 'react'
 
 const Home = () => {
-  const token = Cookies.get('jwt'); // Get token from cookies
+  const token = localStorage.getItem('jwt'); // Get token from cookies
 
   useEffect(() => {
     if (!token) {
