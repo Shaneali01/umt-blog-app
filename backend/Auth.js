@@ -1,3 +1,6 @@
+const jwt = require('jsonwebtoken');
+const usermodel = require('./Models/UserModel');
+
 async function createToken(userid, res) {
     // Create JWT token
     const token = jwt.sign({ userid }, process.env.SECRET_KEY, { expiresIn: '7d' });
@@ -10,4 +13,6 @@ async function createToken(userid, res) {
     // Return the token instead of setting a cookie
     return token;
 }
-module.exports={createToken}
+
+
+module.exports = { createToken };
