@@ -33,7 +33,7 @@ const Updateblog = () => {
     setLoading(true); // Start loading
     try {
       // Retrieve token from local storage or context
-      const token = localStorage.getItem('token'); // Adjust based on your implementation
+      const token = localStorage.getItem('jwt'); // Adjust based on your implementation
 
       const response = await axios.put(
         `${BACKEND_URL}/blog/updateblog/${id}`, 
