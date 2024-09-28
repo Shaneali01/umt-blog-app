@@ -21,8 +21,9 @@ const Navbar = () => {
   // Handle logout by clearing the token
   const handleLogout = () => {
     localStorage.removeItem('jwt'); // Remove the JWT token from local storage
-    toast.success("SUCCESSFULL LOGOUT")
     window.location.reload(); // Reload the page to refresh the state
+    toast.success("SUCCESSFULL LOGOUT")
+
   };
 
   return (
