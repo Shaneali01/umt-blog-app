@@ -13,7 +13,8 @@ const AuthProvider = ({ children }) => {
 
   async function getProfile() {
     try {
-      const token = Cookies.get('jwt');
+      // Retrieve token from localStorage
+      const token = localStorage.getItem('jwt');
       console.log("Token:", token);
 
       // Only fetch the profile if the token exists
@@ -35,6 +36,7 @@ const AuthProvider = ({ children }) => {
       setProfileLoading(false);
     }
   }
+
   async function fetchBlogs() {
     try {
       const response = await axios.get(`${BACKEND_URL}/blog/allblogs`);
@@ -51,7 +53,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ useblogs, profile, profileLoading, profileError,getProfile,fetchBlogs }}>
+    <AuthContext.Provider value={{ useblogs, profile, profileLoading, profileError, getProfile, fetchBlogs }}>
       {children}
     </AuthContext.Provider>
   );

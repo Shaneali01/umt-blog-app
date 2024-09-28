@@ -1,38 +1,43 @@
-
 const cloudinary = require('cloudinary').v2;
-const { default: mongoose } = require('mongoose');
-const blogmodel=require('../Models/BlogModel')
+const blogmodel = require('../Models/BlogModel');
+
 async function CreateBlog(req, res) {
     try {
         if (!req.files || !req.files.blogphoto) {
             return res.status(400).json({ message: 'PHOTO IS REQUIRED' });
         }
+
         const { blogphoto } = req.files;
         const formats = ['image/jpeg', 'image/png'];
         if (!formats.includes(blogphoto.mimetype)) {
             return res.status(400).json({ message: 'INVALID FORMAT' });
         }
-        const adminName=req.user.name;
-        const UserPhoto=req.user.photo
 
-        const { title,category,about } = req.body;
-        if(!title || !category || !about ){
-            return res.json({message : 'ALL FIELDS ARE REQUIRED'})
+        const adminName = req.user.name;
+        const UserPhoto = req.user.photo;
+        const { title, category, about } = req.body;
+
+        if (!title || !category || !about) {
+            return res.status(400).json({ message: 'ALL FIELDS ARE REQUIRED' });
+        }
+
+        // Validate the length of the "about" field
+        if (about.length < 200) {
+            return res.status(400).send({ message: 'ABOUT MUST BE AT LEAST 200 WORDS' });
         }
 
         // Upload photo to Cloudinary
         const uploadResult = await cloudinary.uploader.upload(blogphoto.tempFilePath);
 
-
-        // Create a new user
+        // Create a new blog post
         const createBlog = new blogmodel({
             title,
             category,
             about,
             adminName,
             UserPhoto: {
-                public_id: req.user.photo.public_id,
-                url: req.user.photo.url
+                public_id: UserPhoto.public_id,
+                url: UserPhoto.url
             },
             createdBy: req.user._id,
             blogphoto: {
@@ -40,80 +45,77 @@ async function CreateBlog(req, res) {
                 url: uploadResult.url
             }
         });
-        if(about.length<200){
-            return res.send({message:'200 words'})
-        }
-        
 
-        // Save the user in the database
+        // Save the blog post
         await createBlog.save();
-
-        // Generate token and store it in the user's document
-
-        // Send response
-        return res.status(201).send({ message: "SUCCESS", });
+        return res.status(201).send({ message: "SUCCESS" });
     } catch (error) {
-        console.log(error)
-        return res.status(500).json(error);
+        console.error('Error creating blog:', error);
+        return res.status(500).json({ message: 'INTERNAL SERVER ERROR' });
     }
 }
-async function DeleteBlog(req,res){
-   try{
-    const blogid=req.params.id;
-    await blogmodel.findByIdAndDelete(blogid)
-    return res.json("SUCCESSFULLY DELETED")
 
-   }
-   catch(error){
-    return res.json("FAILED TO DELETE")
-   }
-}
-async function GetAllBlogs(req,res){
-    try{
-        const Data=await blogmodel.find({});
-        if(!Data){
-            return res.json("DATA NOT FOUND")
+async function DeleteBlog(req, res) {
+    try {
+        const blogId = req.params.id;
+        const deletedBlog = await blogmodel.findByIdAndDelete(blogId);
+        if (!deletedBlog) {
+            return res.status(404).json("BLOG NOT FOUND");
         }
-        return res.json(Data)
-    }
-    catch(error){
-        return res.json('FAILED TO GET DATA')
-    }
-}
-async function GetSingleBlog(req,res){
-    try{
-        const blogid=req.params.id;
-        const Data=await blogmodel.findById(blogid);
-        if(!Data){
-            return res.json("USER DONT EXIST WITH THIS ID")
+
+        // Optionally, remove the blog photo from Cloudinary
+        if (deletedBlog.blogphoto && deletedBlog.blogphoto.public_id) {
+            await cloudinary.uploader.destroy(deletedBlog.blogphoto.public_id);
         }
-        return res.json(Data)
 
-    }
-    catch(error){
-        return res.json("NOT FOUND")
+        return res.json("SUCCESSFULLY DELETED");
+    } catch (error) {
+        console.error('Error deleting blog:', error);
+        return res.status(500).json("FAILED TO DELETE");
     }
 }
-async function Myblogs(req,res){
-   try{
-    const userid=req.user.id;
-    console.log(userid)
-    const Data=await blogmodel.find({createdBy:userid});
-   if(Data.length===0){
-    return res.json({message:"NO RECORDS FOUND"})
-   }
-    return res.json(Data)
 
-   }
-   catch(error){
-    return res.json("SOWMTHING WENT WRONG")
-   }
+async function GetAllBlogs(req, res) {
+    try {
+        const data = await blogmodel.find({});
+        return res.json(data);
+    } catch (error) {
+        console.error('Error fetching all blogs:', error);
+        return res.status(500).json('FAILED TO GET DATA');
+    }
 }
+
+async function GetSingleBlog(req, res) {
+    try {
+        const blogId = req.params.id;
+        const data = await blogmodel.findById(blogId);
+        if (!data) {
+            return res.status(404).json("BLOG NOT FOUND");
+        }
+        return res.json(data);
+    } catch (error) {
+        console.error('Error fetching single blog:', error);
+        return res.status(500).json("NOT FOUND");
+    }
+}
+
+async function Myblogs(req, res) {
+    try {
+        const userId = req.user.id;
+        const data = await blogmodel.find({ createdBy: userId });
+        if (data.length === 0) {
+            return res.json({ message: "NO RECORDS FOUND" });
+        }
+        return res.json(data);
+    } catch (error) {
+        console.error('Error fetching user blogs:', error);
+        return res.status(500).json("SOMETHING WENT WRONG");
+    }
+}
+
 async function UpdateBlogs(req, res) {
     try {
         const id = req.params.id;
-
-        // Prepare the update object
         const updateData = {
             title: req.body.title,
             category: req.body.category,
@@ -123,14 +125,12 @@ async function UpdateBlogs(req, res) {
         // Check for a new image upload
         if (req.files && req.files.blogphoto) {
             const { blogphoto } = req.files;
-
-            // Validate image type
             const formats = ['image/jpeg', 'image/png'];
             if (!formats.includes(blogphoto.mimetype)) {
                 return res.status(400).json({ message: 'INVALID FORMAT' });
             }
 
-            // Optional: Remove the old image from Cloudinary if necessary
+            // Remove the old image from Cloudinary if necessary
             const blog = await blogmodel.findById(id);
             if (blog && blog.blogphoto && blog.blogphoto.public_id) {
                 await cloudinary.uploader.destroy(blog.blogphoto.public_id);
@@ -147,16 +147,21 @@ async function UpdateBlogs(req, res) {
         // Update the blog using findByIdAndUpdate
         const updatedBlog = await blogmodel.findByIdAndUpdate(id, updateData, { new: true });
         if (!updatedBlog) {
-            return res.status(404).json({ message: "Blog not found" });
+            return res.status(404).json({ message: "BLOG NOT FOUND" });
         }
 
         return res.status(200).json({ message: "SUCCESS", data: updatedBlog });
     } catch (error) {
-        console.error('Error occurred during update:', error);
-        return res.status(500).json({ message: 'INTERNAL SERVER ERROR' });
+        console.error('Error updating blog:', error);
+        return res.status(500).json("FAILED TO UPDATE");
     }
 }
 
-    
-
-module.exports = { CreateBlog,DeleteBlog,GetAllBlogs,GetSingleBlog,Myblogs,UpdateBlogs };
+module.exports = {
+    CreateBlog,
+    DeleteBlog,
+    GetAllBlogs,
+    GetSingleBlog,
+    Myblogs,
+    UpdateBlogs
+};
