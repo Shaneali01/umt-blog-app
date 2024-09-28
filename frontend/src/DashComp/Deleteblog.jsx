@@ -32,7 +32,14 @@ const Deleteblog = () => {
     if (!confirmed) return; // If the user cancels, exit the function
 
     try {
-      const response = await axios.delete(`${BACKEND_URL}/blog/deleteblog/${id}`, { withCredentials: true });
+      const token = localStorage.getItem('token'); // Adjust based on your implementation
+
+      const response = await axios.delete(`${BACKEND_URL}/blog/deleteblog/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}` // Add the token to headers
+        },
+        withCredentials: true
+      });
       console.log(response);
       toast.success('Successfully deleted');
       navigate('/dashboard');
