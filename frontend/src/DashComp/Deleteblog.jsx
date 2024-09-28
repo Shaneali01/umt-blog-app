@@ -32,7 +32,7 @@ const Deleteblog = () => {
     if (!confirmed) return; // If the user cancels, exit the function
 
     try {
-      const token = localStorage.getItem('token'); // Adjust based on your implementation
+      const token = localStorage.getItem('jwt'); // Adjust based on your implementation
 
       const response = await axios.delete(`${BACKEND_URL}/blog/deleteblog/${id}`, {
         headers: {
