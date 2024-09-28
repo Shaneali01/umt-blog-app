@@ -6,5 +6,5 @@ router.post('/register',registerUser);
 router.post('/login',loginUser);
 router.get('/logout',logoutUser);
 router.get('/getprofile',verification,authorization,getProfile)
-router.get('/allAdmins',verification,authorization,GetAllAdmins)
+router.get('/allAdmins',verification,GetAllAdmins)
 module.exports=router

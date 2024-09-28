@@ -11,7 +11,7 @@ const Updateblog = () => {
   const [error, setError] = useState(null); // State for error
   const [category, setCategory] = useState('devotional');
   const [title, setTitle] = useState('');
-  const [photo, setPhoto] = useState('');
+  const [photo, setPhoto] = useState(null); // Use null initially for file
   const [prev, setPrev] = useState(''); // State for image preview
   const [about, setAbout] = useState('');
 
@@ -25,16 +25,32 @@ const Updateblog = () => {
     const formdata = new FormData();
     formdata.append('category', category);
     formdata.append('title', title);
-    formdata.append('blogphoto', photo); // Sending the file
+    if (photo) {
+      formdata.append('blogphoto', photo); // Only send the file if it exists
+    }
     formdata.append('about', about);
 
     setLoading(true); // Start loading
     try {
-      const response = await axios.put(`http://localhost:8000/blog/updateblog/${id}`, formdata, { withCredentials: true });
+      // Retrieve token from local storage or context
+      const token = localStorage.getItem('token'); // Adjust based on your implementation
+
+      const response = await axios.put(
+        `${BACKEND_URL}/blog/updateblog/${id}`, 
+        formdata, 
+        { 
+          headers: { 
+            Authorization: `Bearer ${token}` // Add the token to headers
+          },
+          withCredentials: true 
+        }
+      );
+
       console.log(response);
       toast.success('Blog updated successfully!');
       setLoading(false); // Stop loading
     } catch (error) {
+      console.error("Update Error:", error);
       toast.error('SOMETHING WENT WRONG');
       setLoading(false); // Stop loading
     }
@@ -44,7 +60,14 @@ const Updateblog = () => {
   async function getSingleBlog() {
     setLoading(true); // Add loading state for fetching blog
     try {
-      const response = await axios.get(`${BACKEND_URL}/blog/singleblog/${id}`, { withCredentials: true });
+      const token = localStorage.getItem('token'); // Adjust based on your implementation
+      const response = await axios.get(`${BACKEND_URL}/blog/singleblog/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}` // Add the token to headers
+        },
+        withCredentials: true
+      });
+
       if (response.data === "USER DONT EXIST WITH THIS ID") {
         setError("Blog not found");
       } else {
@@ -53,8 +76,7 @@ const Updateblog = () => {
         setCategory(blogdata.category);
         setTitle(blogdata.title);
         setPrev(blogdata.blogphoto.url); 
-        setPhoto(blogdata.blogphoto);
-        console.log(photo)// For pr;eview
+        setPhoto(blogdata.blogphoto); // Set photo for editing
         setAbout(blogdata.about);
       }
     } catch (err) {
@@ -83,7 +105,7 @@ const Updateblog = () => {
 
   return (
     <div className='flex'>
-      <div className="flex flex-col justify-center my-7 shadow-2xl mx-[10px] sm:mx-[40px] md:mx-[70px] lg:mx-[180px] border-[2px]  w-[1100px] space-y-2 p-2 rounded-2xl">
+      <div className="flex flex-col justify-center my-7 shadow-2xl mx-[10px] sm:mx-[40px] md:mx-[70px] lg:mx-[180px] border-[2px] w-[1100px] space-y-2 p-2 rounded-2xl">
         <h1 className="p-4 text-3xl font-bold text-center">Update Blog</h1>
         {error && <p className="text-red-500">{error}</p>} {/* Display error if any */}
         {loading ? (
@@ -113,14 +135,17 @@ const Updateblog = () => {
 
             <p className="text-xl font-semibold mt-5">Blog Image</p>
             <div>
-             <div className='flex justify-center'>
-             <img src={prev} 
-                className="h-[300px] border-[2px] border-black w-[600px] rounded-lg mt-3"
-                alt="Preview"
-              />
-             </div>
+              <div className='flex justify-center'>
+                {prev && (
+                  <img src={prev} 
+                    className="h-[300px] border-[2px] border-black w-[600px] rounded-lg mt-3"
+                    alt="Preview"
+                  />
+                )}
+              </div>
               <input
                 type="file"
+                accept="image/*"
                 onChange={photoHandler}
                 className="w-full p-3 text-sm mt-3 font-semibold"
                 placeholder="Blog Image"
@@ -129,7 +154,7 @@ const Updateblog = () => {
 
             <p className="text-xl font-bold mt-5">About</p>
             <textarea value={about} onChange={(e) => setAbout(e.target.value)}
-              className="w-full h-72 p-3 text-md mt-5 bg-gray-100  rounded-lg"
+              className="w-full h-72 p-3 text-md mt-5 bg-gray-100 rounded-lg"
               placeholder="Write about the blog here... must be greater than 200 words"
             />
 
@@ -148,4 +173,3 @@ const Updateblog = () => {
 };
 
 export default Updateblog;
- 

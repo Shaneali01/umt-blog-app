@@ -9,7 +9,7 @@ const Deleteblog = () => {
   const [data, setData] = useState(null); // State for blog data
   const [loading, setLoading] = useState(true); // State for loading
   const [error, setError] = useState(null); // State for error
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   async function getSingleBlog() {
     try {
@@ -18,7 +18,6 @@ const Deleteblog = () => {
         setError("Blog not found");
       } else {
         setData(response.data);
-        console.log(response.data)
       }
     } catch (err) {
       console.error("Error fetching the blog:", err);
@@ -27,16 +26,19 @@ const Deleteblog = () => {
       setLoading(false);
     }
   }
-  async function deleteblog(){
-    try{
-      const response=await axios.delete(`${BACKEND_URL}/blog/deleteblog/${id}`,{withCredentials:true})
-      console.log(response)
-      toast.success('SUCESSFULLY DELETED')
-      navigate('/dashboard')
 
-    }
-    catch(error){
+  async function deleteblog() {
+    const confirmed = window.confirm("Are you sure you want to delete this blog?");
+    if (!confirmed) return; // If the user cancels, exit the function
+
+    try {
+      const response = await axios.delete(`${BACKEND_URL}/blog/deleteblog/${id}`, { withCredentials: true });
+      console.log(response);
+      toast.success('Successfully deleted');
+      navigate('/dashboard');
+    } catch (error) {
       console.log(error);
+      toast.error('Failed to delete the blog');
     }
   }
 
@@ -58,10 +60,10 @@ const Deleteblog = () => {
 
   return (
     <div className='mx-[40px] shadow-2xl rounded-xl p-8'>
-      <div className='  mx-[10px]   sm:mx-[120px]'>
+      <div className='mx-[10px] sm:mx-[120px]'>
         <div className='mt-[50px]'>
           <h1 className='mb-[10px] text-4xl font-bold'>{data.title}</h1>
-          <p className=' text-sm sm:text-md font-bold'>{data.about || "No description available."}</p>
+          <p className='text-sm sm:text-md font-bold'>{data.about || "No description available."}</p>
         </div>
         <div className='mt-[20px]'>
           <h1 className='mb-[30px] text-2xl font-bold text-violet-800'>Category: {data.category}</h1>
@@ -69,7 +71,7 @@ const Deleteblog = () => {
         <div className='mt-[20px]'>
           <h1 className='mb-[30px] text-2xl font-bold text-violet-800'>Blog Photo</h1>
           {data.blogphoto ? (
-            <img src={data.blogphoto.url} alt={data.title} className='w-[800px] rounded-lg  h-[500px]' />
+            <img src={data.blogphoto.url} alt={data.title} className='w-[800px] rounded-lg h-[500px]' />
           ) : (
             <p>No blog photo available</p>
           )}
