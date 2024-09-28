@@ -1,4 +1,6 @@
 import React from 'react'
+import Cookies from 'js-cookie';
+
 import { toast } from 'react-hot-toast'; // Import toast
 
 import { useState } from 'react';
