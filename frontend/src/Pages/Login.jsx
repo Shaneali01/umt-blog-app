@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../ContextApi/AuthProvider';
 import { BACKEND_URL } from '../utlit';
+import image from '../images/image.png';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -58,10 +59,12 @@ const Login = () => {
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="w-full max-w-md bg-white rounded-lg p-8">
           <form onSubmit={handleRegister}>
-            <div className="font-semibold text-xl items-center text-center">
-              Cili <span className="text-violet-500">Blogs</span>
-            </div>
-            <h1 className="text-xl font-semibold mb-6">REGISTER</h1>
+          <div className='flex justify-center'>
+          <div className='font-semibold text-xl mt-1 flex flex-row'>
+            <img src={image} className='h-[40px] mt-[-5px] mr-2 w-[40px]' alt="" />
+            UMT <span className='text-blue-500 ml-2'>Blogs</span>
+          </div>
+          </div>
 
             <select
               className="w-full p-2 rounded border mb-4"

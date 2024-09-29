@@ -50,7 +50,7 @@ const AdminBlogs = () => {
           {blogs.map((item) => (
             <div key={item._id} className='my-2 w-full mx-2 rounded-lg relative hover:scale-95 shadow-2xl duration-150'>
               <img className='w-full rounded-lg h-[200px] object-cover' src={item.blogphoto.url} alt="" />
-              <div className='items-center h-32'>
+              <div className='items-center h-40'>
                 <p className='text-md mt-5 p-3 text-md font-semibold'>{item.title}</p>
                 <div className='flex flex-row justify-between p-3'>
                   <button onClick={() => navigate(`/updateblog/${item._id}`)} className='border-[2px] shadow-2xl border-gray-500 font-semibold text-green-400 text-sm p-1'>Update</button>
@@ -61,9 +61,10 @@ const AdminBlogs = () => {
           ))}
         </div>
       ) : (
-        <div className='flex justify-center rounded-3xl items-center bg-slate-200 ml-[200px] mt-[200px] w-full'>
-          <p className='text-center font-bold text-xl m-20'>No blogs available</p>
-        </div>
+        <div className='flex justify-center h-[100px] sm:h-[200px] rounded-3xl items-center bg-slate-200 ml-[15px] mr-4 sm:ml-[50px] lg:ml-[200px] mt-[200px] w-auto lg:w-full'>
+                  <p className='text-center font-bold text-sm sm:text-xl m-20'>No blogs available</p>
+
+          </div>
       )}
     </div>
   );

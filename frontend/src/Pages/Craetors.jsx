@@ -32,7 +32,7 @@ const Creators = () => {
 
   return (
     <>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-[50px] mx-[20px] md:mx-[80px] space-x-3'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-[50px] ml-0   mx-[50px] sm:mx-[80px] space-x-3'>
         {loading ? ( // Show spinner while loading
           <div className="flex justify-center items-center h-screen">
             <ClipLoader className='' color={'#36d7b7'} loading={loading} size={150} />
