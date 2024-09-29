@@ -22,8 +22,6 @@ import Mybllogs from "./AdminPages/Mybllogs";
 function App() {
   const location = useLocation();
   const hide=['/login','/register','/dashboard','/createblog','/deleteblog','/updateblog'].includes(location.pathname)
-  const {useblogs}=useAuth();
-  console.log(useblogs)
   return (
     <>
     {!hide && <Navbar/>}
