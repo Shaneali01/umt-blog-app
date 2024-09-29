@@ -67,7 +67,7 @@ const CreateBlog = () => {
       <div>
         <Sidebar />
       </div>
-      <div className="flex flex-col shadow-2xl mx-[10px] sm:mx-[40px] md:mx-[70px] lg:mx-[180px] my-[10px] w-[700px] space-y-4 p-2 rounded-2xl">
+      <div className="flex flex-col shadow-2xl mx-[10px] h-[100vh] sm:mx-[40px] md:mx-[70px] lg:mx-[30px] lg:ml-[100px] border-[2px] border-gray-400 my-[15px] w-[900px]  p-2 rounded-2xl">
         <h1 className="p-4 text-xl font-bold">CREATE BLOGS</h1>
         <form onSubmit={handlePost} className="">
           <p className="text-md font-semibold">Category</p>
@@ -118,7 +118,7 @@ const CreateBlog = () => {
           />
           <button
             type="submit"
-            className="w-full mt-[10px] h-[40px] bg-blue-500 text-white text-center text-sm font-bold"
+            className="w-full mt-[10px] h-[40px] bg-blue-500 hover:bg-blue-600 text-white font-bold text-center text-sm font-bold"
             disabled={loading} // Disable button while loading
           >
             {loading ? 'Posting...' : 'Post Blog'}
