@@ -48,7 +48,7 @@ const AdminBlogs = () => {
       ) : blogs.length > 0 ? (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-[50px] mx-[20px] md:mx-[80px]'>
           {blogs.map((item) => (
-            <div key={item._id} className='my-2 w-full mx-2 rounded-lg relative hover:scale-95 shadow-2xl duration-150'>
+            <div key={item._id} className='my-2  mx-2 rounded-lg relative hover:scale-95 shadow-2xl duration-150'>
               <img className='w-full rounded-lg h-[200px] object-cover' src={item.blogphoto.url} alt="" />
               <div className='items-center h-40'>
                 <p className='text-md mt-5 p-3 text-md font-semibold'>{item.title}</p>

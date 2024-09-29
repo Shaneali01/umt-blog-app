@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast'; // Import toast
+import image from '../images/image.png';
+
 
 import axios from 'axios';
 import { BACKEND_URL } from '../utlit';
@@ -72,8 +74,11 @@ const Register = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 my-2">
       <div className="w-full max-w-md bg-white rounded-lg p-8">
         <form onSubmit={handleRegister}>
-          <div className="font-semibold text-xl items-center text-center">
-            Cili <span className="text-violet-500">Blogs</span>
+        <div className='flex justify-center'>
+          <div className='font-semibold text-xl mt-1 flex flex-row'>
+            <img src={image} className='h-[40px] mt-[-5px] mr-2 w-[40px]' alt="" />
+            UMT <span className='text-blue-500 ml-2'>Blogs</span>
+          </div>
           </div>
           <h1 className="text-xl font-semibold mb-6">REGISTER</h1>
 
