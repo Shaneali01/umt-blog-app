@@ -36,6 +36,9 @@ cloudinary.config({
 mongoose.connect(MONGO_URI)
 .then(()=>console.log("SUCCESSFULLY CONNECTED WITH DATABASE"))
 .catch((err)=>console.log(err,'NOT CONNECTED WITH DATABASE'))
+app.get('/ping', (req, res) => {
+    res.status(200).send('Server is alive');
+  });
 app.use('/api/users',registerroute);
 app.use('/blog',blogroute)
 
