@@ -9,18 +9,16 @@ const Pcreaters = () => {
 
   useEffect(() => {
     async function fetchAdmins() {
-      const token = localStorage.getItem("jwt"); // Get the JWT token from local storage
+      const token = localStorage.getItem("jwt");
 
       try {
         const response = await axios.get(`${BACKEND_URL}/api/users/allAdmins`, {
           headers: {
-            Authorization: `Bearer ${token}`, // Include the token in the headers
+            Authorization: `Bearer ${token}`,
           },
         });
         setAdmins(response.data);
       } catch (error) {
-        console.error("Failed to fetch admins:", error);
-        // You might want to handle error states here
       }
     }
     

@@ -9,7 +9,6 @@ import toast from 'react-hot-toast';
 const Contacts = () => {
   const { register, handleSubmit, formState: { errors },reset } = useForm();
 
-  // This function will run on form submission
   const onSubmit = async (data) => {
     const Userdata = {
       access_key: 'c923b3eb-e737-490e-885b-1cdea6923ff6',
@@ -20,10 +19,9 @@ const Contacts = () => {
     try {
       await axios.post('https://api.web3forms.com/submit', Userdata);
       toast.success("Successfully sent message");
-      reset(); // Reset form fields
+      reset(); 
 
     } catch (error) {
-      console.log(error);
       toast.error("Failed to send message");
     }
   };

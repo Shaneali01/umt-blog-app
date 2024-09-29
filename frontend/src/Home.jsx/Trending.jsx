@@ -5,17 +5,17 @@ import { useAuth } from '../ContextApi/AuthProvider';
 import { Link } from 'react-router-dom';
 
 const Trending = () => {
-  const { useblogs,fetchBlogs } = useAuth(); // Destructure useblogs from the context
-  const [loading, setLoading] = useState(true); // Loading state
+  const { useblogs,fetchBlogs } = useAuth(); 
+  const [loading, setLoading] = useState(true); 
   useEffect(()=>{
     fetchBlogs();
   },[])
 
   useEffect(() => {
     if (useblogs && useblogs.length > 0) {
-      setLoading(false); // Data has loaded
+      setLoading(false);
     }
-  }, [useblogs]); // Re-run when useblogs changes
+  }, [useblogs]); 
 
   const responsive = {
     superLargeDesktop: {

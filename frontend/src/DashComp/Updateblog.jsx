@@ -46,11 +46,9 @@ const Updateblog = () => {
         }
       );
 
-      console.log(response);
       toast.success('Blog updated successfully!');
       setLoading(false); // Stop loading
     } catch (error) {
-      console.error("Update Error:", error);
       toast.error('SOMETHING WENT WRONG');
       setLoading(false); // Stop loading
     }
@@ -76,30 +74,27 @@ const Updateblog = () => {
         setCategory(blogdata.category);
         setTitle(blogdata.title);
         setPrev(blogdata.blogphoto.url); 
-        setPhoto(blogdata.blogphoto); // Set photo for editing
+        setPhoto(blogdata.blogphoto); 
         setAbout(blogdata.about);
       }
     } catch (err) {
-      console.error("Error fetching the blog:", err);
       setError("An error occurred while fetching the blog");
     } finally {
-      setLoading(false); // Stop loading after fetching
+      setLoading(false); 
     }
   }
 
-  // Fetch the blog when the component mounts
   useEffect(() => {
     getSingleBlog();
   }, []);
 
-  // Function to handle image file selection and preview
   const photoHandler = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      setPrev(reader.result); // Preview the image
-      setPhoto(file); // Store the selected file
+      setPrev(reader.result); 
+      setPhoto(file); 
     };
   };
 
@@ -109,7 +104,7 @@ const Updateblog = () => {
         <h1 className="p-4 text-3xl font-bold text-center">Update Blog</h1>
         {error && <p className="text-red-500">{error}</p>} {/* Display error if any */}
         {loading ? (
-          <p>Loading...</p> // Show loading state
+          <p>Loading...</p> 
         ) : (
           <form onSubmit={formhandling} className="">
             <p className="text-xl font-semibold">Category</p>
@@ -161,7 +156,7 @@ const Updateblog = () => {
             <button
               type="submit"
               className={`w-full mt-[10px] h-[40px] ${loading ? 'bg-gray-500' : 'bg-green-500'} hover:bg-green-600 text-white text-center text-sm font-bold`}
-              disabled={loading} // Disable the button when loading
+              disabled={loading} 
             >
               {loading ? 'Updating...' : 'Update'}
             </button>

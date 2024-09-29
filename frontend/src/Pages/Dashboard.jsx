@@ -8,11 +8,7 @@ import AdminBlogs from '../DashComp/AdminBlogs';
 const Dashboard = () => {
   const { profile } = useAuth();
   const navigate = useNavigate();
-
-  // Check if the profile is valid
   const isProfileValid = profile && typeof profile === 'object' && Object.keys(profile).length > 0;
-
-  // Navigate if the profile is not valid
   useEffect(() => {
     if (!isProfileValid) {
       navigate('/');

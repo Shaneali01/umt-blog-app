@@ -3,11 +3,9 @@ import { useAuth } from '../ContextApi/AuthProvider';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
-  const { useblogs } = useAuth(); // Destructure useblogs from the context
+  const { useblogs } = useAuth(); 
 
-  // Log useblogs to ensure it's not undefined
 
-  // If useblogs is undefined or null, provide a default empty array
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-[50px] mx-[20px] md:mx-[80px]'>
       {useblogs && useblogs.length>0 ? (

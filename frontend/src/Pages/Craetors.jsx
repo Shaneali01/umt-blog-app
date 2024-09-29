@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import ClipLoader from 'react-spinners/ClipLoader'; // Import ClipLoader for spinner
+import ClipLoader from 'react-spinners/ClipLoader'; 
 import 'react-multi-carousel/lib/styles.css';
 import { BACKEND_URL } from '../utlit';
 
 const Creators = () => {
   const [admins, setAdmins] = useState([]);
-  const [loading, setLoading] = useState(true); // State for loading status
-
+  const [loading, setLoading] = useState(true); 
   useEffect(() => {
     const fetchAdmins = async () => {
       try {
@@ -19,12 +18,10 @@ const Creators = () => {
           },
           withCredentials:true
         });
-        console.log('POOKIE SHAN', response.data);
         setAdmins(response.data);
       } catch (error) {
-        console.error('Error fetching admins:', error);
       } finally {
-        setLoading(false); // Stop loading after the request is done (success or fail)
+        setLoading(false); 
       }
     };
     fetchAdmins();
@@ -33,7 +30,7 @@ const Creators = () => {
   return (
     <>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mt-[50px] ml-0   mx-[50px] sm:mx-[80px] space-x-3'>
-        {loading ? ( // Show spinner while loading
+        {loading ? ( 
           <div className="flex justify-center items-center h-screen">
             <ClipLoader className='' color={'#36d7b7'} loading={loading} size={150} />
           </div>

@@ -20,7 +20,6 @@ const Deleteblog = () => {
         setData(response.data);
       }
     } catch (err) {
-      console.error("Error fetching the blog:", err);
       setError("An error occurred while fetching the blog");
     } finally {
       setLoading(false);
@@ -40,18 +39,16 @@ const Deleteblog = () => {
         },
         withCredentials: true
       });
-      console.log(response);
       toast.success('Successfully deleted');
       navigate('/dashboard');
     } catch (error) {
-      console.log(error);
       toast.error('Failed to delete the blog');
     }
   }
 
   useEffect(() => {
-    getSingleBlog(); // Fetch the blog on component mount
-  }, [id]); // Ensure it runs when id changes
+    getSingleBlog(); 
+  }, [id]); 
 
   if (loading) {
     return <div>Loading...</div>;

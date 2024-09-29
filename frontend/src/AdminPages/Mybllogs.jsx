@@ -3,7 +3,7 @@ import { useAuth } from '../ContextApi/AuthProvider';
 import { Link } from 'react-router-dom';
 
 const Mybllogs = () => {
-  const { useblogs } = useAuth(); // Destructure useblogs from the context
+  const { useblogs } = useAuth();
   
 
   return (

@@ -40,25 +40,23 @@ const CreateBlog = () => {
     formdata.append('about', about);
     const token=localStorage.getItem('jwt');
     if (!token) {
-      console.log("No token found. Cannot fetch blogs.");
-      return; // Early exit if token is not available
+      return; 
     }
 
-    setLoading(true); // Start loading
+    setLoading(true); 
     try {
       const response = await axios.post(`${BACKEND_URL}/blog/blogcreate`, formdata, {
         withCredentials: true,
         headers: {
-          Authorization: `Bearer ${token}`, // Add the Bearer token here
+          Authorization: `Bearer ${token}`, 
         },
       });
-      console.log(response.data.message);
       toast.success('Blog posted successfully!');
       navigate('/')
-      setLoading(false); // Stop loading
+      setLoading(false); 
     } catch (error) {
       toast.error('SOMETHING WENT WRONG');
-      setLoading(false); // Stop loading
+      setLoading(false); 
     }
   }
 
@@ -118,8 +116,8 @@ const CreateBlog = () => {
           />
           <button
             type="submit"
-            className="w-full mt-[10px] h-[40px] bg-blue-500 hover:bg-blue-600 text-white font-bold text-center text-sm font-bold"
-            disabled={loading} // Disable button while loading
+            className="w-full mt-[10px] h-[40px] bg-blue-500 hover:bg-blue-600 text-white  text-center text-sm font-bold"
+            disabled={loading} 
           >
             {loading ? 'Posting...' : 'Post Blog'}
           </button>

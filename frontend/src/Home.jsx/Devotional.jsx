@@ -5,10 +5,9 @@ import { useAuth } from '../ContextApi/AuthProvider';
 import {Link} from 'react-router-dom'
 
 const Devotional = () => {
-  let { useblogs } = useAuth(); // Destructure useblogs from the context
+  let { useblogs } = useAuth();
   const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
       items: 5
     },
@@ -50,7 +49,7 @@ const Devotional = () => {
        </Link>
       ))
     ) : (
-      <p className='text-md text-red-500 font-bold'>No blogs available</p> // Display this message if useblogs is empty or undefined
+      <p className='text-md text-red-500 font-bold'>No blogs available</p>
     )}
   </Carousel>
   </div>

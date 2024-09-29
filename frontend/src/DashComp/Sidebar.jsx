@@ -11,7 +11,6 @@ const Sidebar = () => {
   async function handlelogout(){
     try{
       const response=await axios.get(`${BACKEND_URL}/api/users/logout`,{withCredentials:true})
-      console.log("myrespnse",response)
       toast.success('SUCCESSFULL LOGOUT')
       navigate('/login')
 

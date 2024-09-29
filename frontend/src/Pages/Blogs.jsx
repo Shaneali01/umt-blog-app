@@ -5,10 +5,10 @@ import { useParams } from 'react-router-dom';
 import { BACKEND_URL } from '../utlit';
 
 const Blogs = () => {
-  const { id } = useParams(); // Get the blog ID from the URL
-  const [data, setData] = useState(null); // State for blog data
-  const [loading, setLoading] = useState(true); // State for loading
-  const [error, setError] = useState(null); // State for error
+  const { id } = useParams(); 
+  const [data, setData] = useState(null); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
 
   async function getSingleBlog() {
     try {
@@ -17,18 +17,16 @@ const Blogs = () => {
         setError("Blog not found");
       } else {
         setData(response.data);
-        console.log('shani ye dekh le ab',response.data)
       }
     } catch (err) {
-      console.error("Error fetching the blog:", err);
       setError("An error occurred while fetching the blog");
     } finally {
       setLoading(false);
     }
   }
   useEffect(() => {
-    getSingleBlog(); // Fetch the blog on component mount
-  }, [id]); // Ensure it runs when id changes
+    getSingleBlog(); 
+  }, [id]); 
 
   if (loading) {
     return <div>Loading...</div>;

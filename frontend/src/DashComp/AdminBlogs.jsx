@@ -4,18 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { BACKEND_URL } from '../utlit';
 
 const AdminBlogs = () => {
-  const [blogs, setBlogs] = useState([]); // Rename for clarity
+  const [blogs, setBlogs] = useState([]); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const token = localStorage.getItem("jwt");
 
   useEffect(() => {
-    // Check token existence within useEffect
     if (!token) {
-      console.log("No token found. Cannot fetch blogs.");
-      setLoading(false); // Stop loading state if token is not available
-      return; // Early exit if token is not available
+      setLoading(false); 
+      return; 
     }
     
     async function getAdminBlogs() {
@@ -26,18 +24,16 @@ const AdminBlogs = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setBlogs(response.data); // Set the fetched data to state
-        console.log("Fetched Blogs:", response.data); // Log the fetched data
+        setBlogs(response.data); 
       } catch (err) {
-        setError('Failed to fetch blogs: ' + (err.response?.data?.message || err.message)); // Improved error handling
-        console.error(err);
+        setError('Failed to fetch blogs: ' + (err.response?.data?.message || err.message)); 
       } finally {
-        setLoading(false); // Stop loading state
+        setLoading(false); 
       }
     }
 
-    getAdminBlogs(); // Call the function to fetch blogs if the token is present
-  }, [token]); // Add token as a dependency to ensure useEffect reacts to token changes
+    getAdminBlogs(); 
+  }, [token]); 
 
   return (
     <div>

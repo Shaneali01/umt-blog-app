@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import Cookies from 'js-cookie';
 import axios from "axios";
 import { BACKEND_URL } from "../utlit";
 
@@ -13,26 +12,19 @@ const AuthProvider = ({ children }) => {
 
   async function getProfile() {
     try {
-      // Retrieve token from localStorage
       const token = localStorage.getItem('jwt');
-      console.log("Token:", token);
-
-      // Only fetch the profile if the token exists
       if (token) {
         const response = await axios.get(`${BACKEND_URL}/api/users/getprofile`, {
           headers: {
-            Authorization: `Bearer ${token}` // Include token in Authorization header
+            Authorization: `Bearer ${token}`
           },
           withCredentials: true,
         });
 
-        console.log("Profile Data:", response);
         setProfile(response.data);
       } else {
-        console.log("No token found, skipping profile fetch.");
       }
     } catch (error) {
-      console.log("Error fetching profile:", error);
       setProfileError(error);
     } finally {
       setProfileLoading(false);
@@ -42,16 +34,14 @@ const AuthProvider = ({ children }) => {
   async function fetchBlogs() {
     try {
       const response = await axios.get(`${BACKEND_URL}/blog/allblogs`);
-      console.log("Blogs Response:", response.data);
       setBlogs(response.data);
     } catch (err) {
-      console.log("Error fetching blogs:", err);
     }
   }
 
   useEffect(() => {
     fetchBlogs();
-    getProfile(); // Only called if the token exists
+    getProfile();
   }, []);
 
   return (

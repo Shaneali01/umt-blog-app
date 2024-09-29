@@ -28,7 +28,6 @@ const Login = () => {
         formData,
         { withCredentials: true }
       );
-
       console.log(data);
       if (data === 'USER WITH THIS ROLE NOT FOUND') {
         return toast.error(data);
