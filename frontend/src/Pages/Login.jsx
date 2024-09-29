@@ -65,6 +65,8 @@ const Login = () => {
             UMT <span className='text-blue-500 ml-2'>Blogs</span>
           </div>
           </div>
+          <h1 className="text-xl font-semibold mb-6">REGISTER</h1>
+
 
             <select
               className="w-full p-2 rounded border mb-4"
