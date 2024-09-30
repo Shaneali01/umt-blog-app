@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
 import axios from 'axios';
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BACKEND_URL } from '../utlit';
+import RingLoader from "react-spinners/RingLoader"; // Import RingLoader
 
 const Blogs = () => {
   const { id } = useParams(); 
@@ -24,12 +25,17 @@ const Blogs = () => {
       setLoading(false);
     }
   }
+
   useEffect(() => {
     getSingleBlog(); 
   }, [id]); 
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className='flex justify-center items-center h-screen'>
+        <RingLoader size={60} color={"#36d7b7"} loading={loading} /> {/* RingLoader */}
+      </div>
+    );
   }
 
   if (error) {
@@ -39,23 +45,24 @@ const Blogs = () => {
   if (!data) {
     return <div>No blog data available</div>;
   }
+
   return (
-    <div className=' mx-[10px]  sm:mx-[40px] shadow-2xl rounded-2xl p-8 my-6 '>
-      <div className='     sm:mx-[120px]'>
+    <div className=' mx-[10px] sm:mx-[40px] shadow-2xl rounded-2xl p-8 my-6 '>
+      <div className='sm:mx-[120px]'>
         <div className='mt-[50px]'>
           <h1 className='mb-[10px] text-4xl font-bold'>{data.title}</h1>
-          <p className=' text-sm font-semibold sm:text-md '>{data.about || "No description available."}</p>
+          <p className='text-sm font-semibold sm:text-md'>{data.about || "No description available."}</p>
         </div>
         <div className='mt-[20px]'>
           <h1 className='mb-[30px] text-3xl font-bold text-black'>Category: {data.category}</h1>
-        </div> 
+        </div>
         <div className='mt-[20px]'>
           {data.blogphoto ? (
             <img src={data.blogphoto.url} alt={data.title} className='sm:w-[800px] rounded-lg h-[400px] sm:h-[500px]' />
           ) : (
             <p>No blog photo available</p>
           )}
-        </div> 
+        </div>
         <div className='mt-[20px]'>
           <h1 className='mb-[30px] text-3xl font-bold text-black'>Admin</h1>
           {data.UserPhoto ? (
@@ -66,10 +73,10 @@ const Blogs = () => {
         </div>
         <div className='mt-[20px]'>
           <h1 className='mb-[30px] ml-[40px] text-xl font-bold text-violet-800'>{data.adminName}</h1>
-        </div>       
+        </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Blogs
+export default Blogs;
