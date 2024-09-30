@@ -61,10 +61,7 @@ const CreateBlog = () => {
   }
 
   return (
-    <div className="flex flex-row">
-      <div>
-        <Sidebar />
-      </div>
+    <div className="flex justify-center">
       <div className="flex flex-col shadow-2xl mx-[10px] h-[100vh] sm:mx-[40px] md:mx-[70px] lg:mx-[30px] lg:ml-[100px] border-[2px] border-gray-400 my-[15px] w-[900px]  p-2 rounded-2xl">
         <h1 className="p-4 text-xl font-bold">CREATE BLOGS</h1>
         <form onSubmit={handlePost} className="">
