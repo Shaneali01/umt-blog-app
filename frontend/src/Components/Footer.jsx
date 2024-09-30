@@ -57,9 +57,9 @@ const Footer = () => {
       <div className='flex flex-row justify-evenly  '>
       <div className='font-semibold text-sm sm:text-xl  flex flex-row '>
             <img src={image} className='sm:h-[40px] h-[25px] mt-[-2px] sm:mt-[-12px] mr-2 w-[25px] sm:w-[40px]' alt="" />
-            UMT <span className='text-blue-500 ml-2'>Blogs</span>
+            UMT <span className='text-blue-500 ml-1'>Blogs</span>
           </div>
-      <p className='font-bold sm:text-md text-[13px] mt-[4px]'>2024 private limited</p>
+      <p className='font-bold sm:text-md text-[11px] mt-[4px]'>2024 private limited</p>
       <div className='flex flex-row mb-[10px] '>
         <Link to={'https://www.linkedin.com/in/shan-e-ali-shah-57ab72287/'}>        <FaLinkedin  className='mx-[4px] mb-[2px] hover:text-red-600'  size={20}/>
 </Link>
