@@ -16,6 +16,7 @@ const Navbar = () => {
     localStorage.removeItem('jwt'); 
     window.location.reload();
     toast.success("SUCCESSFULL LOGOUT")
+    Navigate('/login')
 
   };
   return (
