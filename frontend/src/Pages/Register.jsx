@@ -15,8 +15,8 @@ const Register = () => {
   const [education, setEducation] = useState('');   
   const [photo, setPhoto] = useState('');   
   const [prev, setPrev] = useState('');   
-  const [loading, setLoading] = useState(false); // loading state 
-  const [imageChosen, setImageChosen] = useState(false); // New state for image selection
+  const [loading, setLoading] = useState(false); 
+  const [imageChosen, setImageChosen] = useState(false); 
 
   const photoHandler = (e) => {     
     const file = e.target.files[0];     
@@ -25,13 +25,13 @@ const Register = () => {
     reader.onload = () => {       
       setPrev(reader.result);       
       setPhoto(file);       
-      setImageChosen(true); // Set imageChosen to true when a file is selected
+      setImageChosen(true); 
     };   
   };   
 
   async function handleRegister(e) {     
     e.preventDefault();     
-    setLoading(true); // Start loading     
+    setLoading(true);     
     const formData = new FormData();     
     formData.append('name', name);     
     formData.append('email', email);     
@@ -47,7 +47,7 @@ const Register = () => {
         formData, { withCredentials: true }       
       );       
       toast.success("SUCCESSFULLY REGISTERED");       
-      localStorage.setItem('jwt', data.token); // Assuming data.token contains the JWT        
+      localStorage.setItem('jwt', data.token); 
 
       // Reset form fields
       setName('');       
@@ -58,17 +58,17 @@ const Register = () => {
       setEducation('');       
       setRole('');       
       setPrev('');       
-      setImageChosen(false); // Reset the image chosen state
+      setImageChosen(false); 
       toast('Please Login to access more features!', {         
         icon: '👏',         
-        duration: 5000, // Show toast for 4 seconds       
+        duration: 5000, 
       });       
       navigate('/login')     
     } catch (error) {       
       alert("SOMETHING WENT WRONG");       
       console.log(error);     
     } finally {       
-      setLoading(false); // End loading     
+      setLoading(false);     
     }   
   }   
 
@@ -88,7 +88,7 @@ const Register = () => {
             className="w-full p-1 rounded border mb-4"             
             onChange={(e) => setRole(e.target.value)}             
             value={role}             
-            disabled={loading} // Disable input when loading           
+            disabled={loading}           
           >             
             <option value="">Select Role</option>             
             <option value="user">User</option>             
@@ -102,7 +102,7 @@ const Register = () => {
               value={name}               
               onChange={(e) => setName(e.target.value)}               
               placeholder="Your Name"               
-              disabled={loading} // Disable input when loading             
+              disabled={loading}             
             />           
           </div>            
 
@@ -113,7 +113,7 @@ const Register = () => {
               onChange={(e) => setEmail(e.target.value)}               
               value={email}               
               placeholder="Enter Your Email Address"               
-              disabled={loading} // Disable input when loading             
+              disabled={loading}             
             />           
           </div>            
 
@@ -124,7 +124,7 @@ const Register = () => {
               onChange={(e) => setPassword(e.target.value)}               
               value={password}               
               placeholder="Enter Your Password"               
-              disabled={loading} // Disable input when loading             
+              disabled={loading}             
             />           
           </div>            
 
@@ -135,7 +135,7 @@ const Register = () => {
               onChange={(e) => setPhone(e.target.value)}               
               value={phone}               
               placeholder="Enter Your Phone Number"               
-              disabled={loading} // Disable input when loading             
+              disabled={loading}             
             />           
           </div>            
 
@@ -143,7 +143,7 @@ const Register = () => {
             className="w-full p-1 rounded border mb-4"             
             onChange={(e) => setEducation(e.target.value)}             
             value={education}             
-            disabled={loading} // Disable input when loading           
+            disabled={loading}           
           >             
             <option value="">Select Your Education</option>             
             <option value="BCA">BCA</option>             
@@ -156,17 +156,20 @@ const Register = () => {
             <div className="photo h-20 w-[140px] mr-4 mt-6">               
               {prev && <img className='h-[100px] w-[100px] rounded-full' src={prev} alt="Preview" />}             
             </div>             
-            <input               
-              className="w-full p-1 rounded border"               
-              onChange={photoHandler}               
-              type="file"               
-              disabled={loading} // Disable input when loading             
-            />           
+            <label className="w-full p-1 rounded border cursor-pointer">
+              Choose image
+              <input               
+                className="hidden" // Hide the actual file input               
+                onChange={photoHandler}               
+                type="file"               
+                disabled={loading}             
+              />           
+            </label>
           </div>            
 
           {/* Conditional message for image selection */}
           {imageChosen && (
-            <p className="text-center text-green-500 mb-4">Choose your image</p>
+            <p className="text-center text-green-500 mb-4">Image chosen</p>
           )}
 
           <p className="text-center items-center mb-4">             
@@ -179,7 +182,7 @@ const Register = () => {
           <button             
             type="submit"             
             className="w-full bg-blue-500 hover:bg-blue-600 text-center text-xl p-1 text-white duration-300 rounded"             
-            disabled={loading} // Disable button when loading           
+            disabled={loading}           
           >             
             {loading ? 'Registering...' : 'Register'}           
           </button>         
@@ -189,4 +192,4 @@ const Register = () => {
   ); 
 };  
 
-export default Register;
+export default Register; 
