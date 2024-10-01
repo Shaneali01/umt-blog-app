@@ -15,7 +15,6 @@ const Navbar = () => {
     isActive ? 'text-blue-500 font-bold' : 'hover:text-blue-200';
   const handleLogout = () => {
     localStorage.removeItem('jwt'); 
-    window.location.reload();
     toast.success("SUCCESSFULL LOGOUT")
     navigate('/login')
 
