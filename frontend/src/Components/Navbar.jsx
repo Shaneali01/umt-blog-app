@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom'; // Import NavLink
+import { NavLink, useNavigate } from 'react-router-dom'; // Import NavLink
 import { CiMenuBurger } from "react-icons/ci";
 import { RxCross2 } from "react-icons/rx";
 import { useAuth } from '../ContextApi/AuthProvider';
@@ -7,6 +7,7 @@ import image from '../images/image.png';
 import toast from 'react-hot-toast';
 
 const Navbar = () => {
+  const navigate=useNavigate();
   const [show, setShow] = useState(false);
   const { profile } = useAuth(); 
   const token = localStorage.getItem('jwt');
@@ -16,7 +17,7 @@ const Navbar = () => {
     localStorage.removeItem('jwt'); 
     window.location.reload();
     toast.success("SUCCESSFULL LOGOUT")
-    Navigate('/login')
+    navigate('/login')
 
   };
   return (
